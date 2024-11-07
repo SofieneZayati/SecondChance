@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Second Chance - Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #1a1b26;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .dashboard {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .logo-container img {
+            width: 180px;
+            height: auto;
+            margin-bottom: 1rem;
+        }
+
+        .logo-text {
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .menu-card {
+            background: #212234;
+            border-radius: 15px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .menu-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50px;
+            height: 50px;
+            border-radius: 0 0 0 100%;
+            transition: all 0.3s ease;
+        }
+
+        .menu-card:nth-child(1)::before {
+            background: #FFB156;
+        }
+
+        .menu-card:nth-child(2)::before {
+            background: #4CAF50;
+        }
+
+        .menu-card:nth-child(3)::before {
+            background: #FF5722;
+        }
+
+        .menu-card:nth-child(4)::before {
+            background: #9C27B0;
+        }
+
+        .menu-card:nth-child(5)::before {
+            background: #E91E63;
+        }
+
+        .menu-card:nth-child(6)::before {
+            background: #2196F3;
+        }
+
+        .menu-card:hover::before {
+            width: 60px;
+            height: 60px;
+        }
+
+        .menu-title {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 500;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .user-info {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: #4CAF50;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .logout-btn {
+            background: transparent;
+            border: 2px solid #ffffff3d;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #ffffff1a;
+        }
+
+        @media (max-width: 900px) {
+            .menu-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .user-info {
+                position: relative;
+                top: 0;
+                right: 0;
+                justify-content: center;
+                margin-bottom: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <div class="user-info">
+            <div class="user-avatar">U</div>
+            <button class="logout-btn">Logout</button>
+        </div>
+
+        <div class="logo-container">
+            <svg width="180" height="100" viewBox="0 0 180 100">
+                <path d="M90 20 C60 20, 40 50, 60 80 C80 50, 100 50, 120 80 C140 50, 120 20, 90 20" 
+                      fill="none" 
+                      stroke="#9C27B0" 
+                      stroke-width="3"/>
+                <circle cx="70" cy="50" r="8" fill="#4CAF50"/>
+                <circle cx="110" cy="50" r="8" fill="#9C27B0"/>
+            </svg>
+            <div class="logo-text">Second Chance</div>
+        </div>
+
+        <div class="menu-grid">
+            <div class="menu-card" onclick="location.href='#home'">
+                <div class="menu-title">Home</div>
+            </div>
+            <div class="menu-card" onclick="location.href='#chat'">
+                <div class="menu-title">Community Chat</div>
+            </div>
+            <div class="menu-card" onclick="location.href='#network'">
+                <div class="menu-title">Support Network</div>
+            </div>
+            <div class="menu-card" onclick="location.href='#job'">
+                <div class="menu-title">Job Opportunities</div>
+            </div>
+            <div class="menu-card" onclick="location.href='#forms'">
+                <div class="menu-title">Training and Formation</div>
+            </div>
+            <div class="menu-card" onclick="location.href='#profile'">
+                <div class="menu-title">Profile</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add click handlers for the menu cards
+        document.querySelectorAll('.menu-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const destination = this.getAttribute('onclick').match(/'#(.+)'/)[1];
+                console.log(`Navigating to ${destination}`);
+                // Here you would typically handle the navigation
+            });
+        });
+
+        // Handle logout
+        document.querySelector('.logout-btn').addEventListener('click', () => {
+            console.log('Logging out...');
+            // Here you would handle the logout process
+        });
+    </script>
+</body>
+</html>

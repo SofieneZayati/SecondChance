@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Second Chance - Create Account</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .signup-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            color: #185a9d;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .tagline {
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e1e1;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .input-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e1e1;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+            cursor: pointer;
+            appearance: none;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            border-color: #43cea2;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(67, 206, 162, 0.1);
+        }
+
+        .input-group label {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: white;
+            padding: 0 5px;
+            color: #666;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .input-group input:focus + label,
+        .input-group input:not(:placeholder-shown) + label,
+        .input-group select:focus + label,
+        .input-group select:not(:placeholder-shown) + label {
+            top: 0;
+            font-size: 0.8rem;
+            color: #43cea2;
+        }
+
+        .role-group {
+            position: relative;
+        }
+
+        .role-group::after {
+            content: '▼';
+            font-size: 0.8rem;
+            color: #666;
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+
+        .error-message {
+            color: #ff4747;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .signup-btn {
+            background: linear-gradient(to right, #43cea2, #185a9d);
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            width: 100%;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            margin-top: 1rem;
+        }
+
+        .signup-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .additional-links {
+            margin-top: 1.5rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .additional-links a {
+            color: #185a9d;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .additional-links a:hover {
+            color: #43cea2;
+        }
+
+        .loading {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ffffff;
+            border-top: 2px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        @media (max-width: 600px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <h1 class="logo">Second Chance</h1>
+        <p class="tagline">Join us on your journey to a fresh start</p>
+        
+        <form id="signupForm" onsubmit="return handleSignup(event)">
+            <div class="form-grid">
+                <div class="input-group">
+                    <input type="text" id="name" placeholder=" " required>
+                    <label for="name">Full Name</label>
+                </div>
+
+                <div class="input-group">
+                    <input type="tel" id="phone" placeholder=" " required>
+                    <label for="phone">Phone Number</label>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <input type="email" id="email" placeholder=" " required>
+                <label for="email">Email</label>
+            </div>
+            
+            <div class="input-group">
+                <input type="password" id="password" placeholder=" " required>
+                <label for="password">Password</label>
+            </div>
+
+            <div class="form-grid">
+                <div class="input-group">
+                    <input type="number" id="age" placeholder=" " required min="18" max="120">
+                    <label for="age">Age</label>
+                </div>
+
+                <div class="input-group role-group">
+                    <select id="role" required>
+                        <option value="" disabled selected></option>
+                        <option value="user">User</option>
+                        <option value="doctor">Doctor</option>
+                        <option value="lawyer">Lawyer</option>
+                    </select>
+                    <label for="role">Role</label>
+                </div>
+            </div>
+
+            <div class="error-message" id="errorMessage"></div>
+
+            <button type="submit" class="signup-btn">
+                <span id="buttonText">Create Account</span>
+                <div class="loading" id="loading"></div>
+            </button>
+        </form>
+
+        <div class="additional-links">
+            Already have an account? <a href="./index.html" >Login here</a>
+        </div>
+    </div>
+
+    <script>
+        function handleSignup(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const phone = document.getElementById('phone').value;
+            const age = document.getElementById('age').value;
+            const role = document.getElementById('role').value;
+            
+            const errorMessage = document.getElementById('errorMessage');
+            const buttonText = document.getElementById('buttonText');
+            const loading = document.getElementById('loading');
+
+            // Reset error message
+            errorMessage.style.display = 'none';
+            
+            // Basic validation
+            if (!name || !email || !password || !phone || !age || !role) {
+                showError('Please fill in all fields');
+                return false;
+            }
+
+            if (!isValidEmail(email)) {
+                showError('Please enter a valid email address');
+                return false;
+            }
+
+            if (!isValidPhone(phone)) {
+                showError('Please enter a valid phone number');
+                return false;
+            }
+
+            if (age < 18 || age > 120) {
+                showError('Please enter a valid age between 18 and 120');
+                return false;
+            }
+
+            // Show loading state
+            buttonText.style.display = 'none';
+            loading.style.display = 'block';
+
+            // Simulate API call
+            setTimeout(() => {
+                // Reset loading state
+                buttonText.style.display = 'block';
+                loading.style.display = 'none';
+
+                // Here you would typically make an API call to create account
+                console.log('Account creation attempted with:', {
+                    name,
+                    email,
+                    password,
+                    phone,
+                    age,
+                    role
+                });
+                
+                // For demo purposes, show success in console
+                console.log('Account created successfully!');
+            }, 1500);
+
+            return false;
+        }
+
+        function showError(message) {
+            const errorMessage = document.getElementById('errorMessage');
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+        }
+
+        function isValidEmail(email) {
+            return email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
+        }
+
+        function isValidPhone(phone) {
+            return phone.match(/^\+?[\d\s-]{10,}$/);
+        }
+
+        // Add event listener for login link
+        document.getElementById('loginLink').addEventListener('click', (e) => {
+            e.preventDefault();
+            console.log('Navigate to login page');
+        });
+    </script>
+</body>
+</html>
