@@ -164,13 +164,18 @@
         </form>
 
         <div class="additional-links">
-        
             <a href="./register.html" id="createAccount">Create Account</a>
         </div>
     </div>
 
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <p id="modal-message"></p>
+        </div>
+    </div>
     <script>
-        function handleLogin(event) {
+        async function handleLogin(event) {
             event.preventDefault();
             
             const email = document.getElementById('email').value;
@@ -197,26 +202,57 @@
             buttonText.style.display = 'none';
             loading.style.display = 'block';
 
-            // Simulate API call
-            setTimeout(() => {
+            try {
+                const response = await fetch("http://127.0.0.1:8090/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        email,
+                        password
+                    })
+                });
+
+                const data = await response.json();
+
                 // Reset loading state
                 buttonText.style.display = 'block';
                 loading.style.display = 'none';
 
-                // Here you would typically make an API call to verify credentials
-                console.log('Login attempted with:', { email, password });
-                
-                // For demo purposes, show success in console
-                console.log('Login successful!');
-            }, 1500);
+                if (response.ok) {
+                    // Redirect to the dashboard page
+                    window.location.href = 'dashboard.html';
+                } else {
+                    // Show error from the server response
+                    showError(data.detail || 'An error occurred');
+                }
+            } catch (error) {
+                // Handle network or unexpected errors
+                console.error('Error:', error);
+                showError('An error occurred during login');
+            }
 
             return false;
         }
 
         function showError(message) {
-            const errorMessage = document.getElementById('errorMessage');
-            errorMessage.textContent = message;
-            errorMessage.style.display = 'block';
+            const modal = document.getElementById("modal");
+            const modalMessage = document.getElementById("modal-message");
+            const closeButton = document.getElementsByClassName("close-button")[0];
+
+            modalMessage.textContent = message;
+            modal.style.display = "block";
+
+            closeButton.onclick = function () {
+                modal.style.display = "none";
+            };
+
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            };
         }
 
         function isValidEmail(email) {
@@ -224,14 +260,9 @@
         }
 
         // Add event listeners for additional links
-        document.getElementById('forgotPassword').addEventListener('click', (e) => {
-            e.preventDefault();
-            console.log('Forgot password clicked');
-        });
-
         document.getElementById('createAccount').addEventListener('click', (e) => {
             e.preventDefault();
-            console.log('Create account clicked');
+            window.location.href = 'register.html';
         });
     </script>
 </body>
