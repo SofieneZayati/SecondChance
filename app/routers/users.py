@@ -1,35 +1,42 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from app.auth import create_access_token, verify_password
-from app.models import User, db  # Adjust this to your database setup
+#from app.auth import create_access_token, verify_password
+from models.models import User, db  # Adjust this to your database setup
 from pydantic import BaseModel
 
 router = APIRouter()
 
-# Request models
+# Define routers - APIs()
+Register = APIRouter()
+Login = APIRouter()
+
 class UserCreate(BaseModel):
-    username: str
+    name: str
     email: str
     password: str
-    role: str  # e.g., "normal", "doctor", "legal_assistant", "admin"
+    phone: str
+    age: int
+    role: str
 
 class UserLogin(BaseModel):
     email: str
     password: str
 
-# Route to register a new user
-@router.post("/register")
+@Register.post("/register", tags=["User Authentication"])
 async def register_user(user: UserCreate):
-    hashed_password = verify_password(user.password, user.password)
-    user.password = hashed_password
+    # Verify and hash password (you can add this step if required)
+    # hashed_password = verify_password(user.password, user.password)
+    # user.password = hashed_password
+    
+    # Insert user in database (assuming `db` is your database instance)
     new_user = await db.users.insert_one(user.dict())
     return {"id": str(new_user.inserted_id)}
 
 # Route to log in and get a JWT token
-@router.post("/login")
+@Login.post("/login",tags=["User Authentication"])
 async def login_user(user: UserLogin):
     db_user = await db.users.find_one({"email": user.email})
-    if not db_user or not verify_password(user.password, db_user["password"]):
+    if not db_user :
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
     
-    token = create_access_token({"user_id": str(db_user["_id"]), "role": db_user["role"]})
-    return {"access_token": token, "token_type": "bearer"}
+    #token = create_access_token({"user_id": str(db_user["_id"]), "role": db_user["role"]})
+    return {"success": True, "message": "saha ya ghoul by legacy"}
