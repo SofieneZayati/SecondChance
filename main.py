@@ -90,6 +90,77 @@ async def render_template(request: Request):
         return HTMLResponse(content=content)
     except TemplateNotFound:
         raise HTTPException(status_code=404, detail="Template not found")
+    
+@app.get("/")
+@app.get("/home.html", tags=["UI"])
+async def render_template(request: Request):
+    try:
+        template = templates.get_template("home.html")
+        content = template.render(title="Home")
+        
+        return HTMLResponse(content=content)
+    except TemplateNotFound:
+        raise HTTPException(status_code=404, detail="Template not found")
+    
+@app.get("/")
+@app.get("/chat.html", tags=["UI"])
+async def render_template(request: Request):
+    try:
+        template = templates.get_template("chat.html")
+        content = template.render(title="Chat")
+        
+        return HTMLResponse(content=content)
+    except TemplateNotFound:
+        raise HTTPException(status_code=404, detail="Template not found")
+    
+@app.get("/")
+@app.get("/network.html", tags=["UI"])
+async def render_template(request: Request):
+    try:
+        template = templates.get_template("network.html")
+        content = template.render(title="Network")
+        
+        return HTMLResponse(content=content)
+    except TemplateNotFound:
+        raise HTTPException(status_code=404, detail="Template not found")
+    
+@app.get("/")
+@app.get("/job.html", tags=["UI"])
+async def render_template(request: Request):
+    try:
+        template = templates.get_template("job.html")
+        content = template.render(title="Job")
+        
+        return HTMLResponse(content=content)
+    except TemplateNotFound:
+        raise HTTPException(status_code=404, detail="Template not found")
+    
+@app.get("/")
+@app.get("/forms.html", tags=["UI"])
+async def render_template(request: Request):
+    try:
+        template = templates.get_template("forms.html")
+        content = template.render(title="Forms")
+        
+        return HTMLResponse(content=content)
+    except TemplateNotFound:
+        raise HTTPException(status_code=404, detail="Template not found")
+    
+@app.get("/")
+@app.get("/profile.html", tags=["UI"])
+async def render_template(request: Request):
+    try:
+        template = templates.get_template("profile.html")
+        content = template.render(title="Profile")
+        
+        return HTMLResponse(content=content)
+    except TemplateNotFound:
+        raise HTTPException(status_code=404, detail="Template not found")
+    
+
+
+
+
 
 
 
