@@ -32,11 +32,13 @@ async def register_user(user: UserCreate):
     return {"id": str(new_user.inserted_id)}
 
 # Route to log in and get a JWT token
-@Login.post("/login",tags=["User Authentication"])
+@Login.post("/login", tags=["User Authentication"])
 async def login_user(user: UserLogin):
-    db_user = await db.users.find_one({"email": user.email})
-    if not db_user :
+    # Look for a user with the matching email and password
+    db_user = await db.users.find_one({"email": user.email, "password": user.password})
+    print("test" , db_user)
+    if not db_user:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
     
-    #token = create_access_token({"user_id": str(db_user["_id"]), "role": db_user["role"]})
+    # token = create_access_token({"user_id": str(db_user["_id"]), "role": db_user["role"]})
     return {"success": True, "message": "saha ya ghoul by legacy"}

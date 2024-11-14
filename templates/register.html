@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +13,7 @@
         }
 
         body {
-            background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%);
+            background: #1a1b26;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -23,27 +22,39 @@
         }
 
         .signup-container {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 2rem;
+            background: #212234;
+            padding: 2.5rem;
             border-radius: 15px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
             width: 100%;
             max-width: 500px;
         }
 
         .logo {
             font-size: 2.5rem;
-            color: #185a9d;
+            color: white;
             margin-bottom: 0.5rem;
             font-weight: bold;
             text-align: center;
         }
 
         .tagline {
-            color: #666;
+            color: #ffffff99;
             margin-bottom: 2rem;
             font-size: 0.9rem;
             text-align: center;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        @media (max-width: 600px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         .input-group {
@@ -51,32 +62,38 @@
             position: relative;
         }
 
-        .input-group input {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e1e1e1;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
+        .input-group input,
         .input-group select {
             width: 100%;
             padding: 12px 15px;
-            border: 2px solid #e1e1e1;
+            border: 2px solid #ffffff3d;
             border-radius: 8px;
             font-size: 1rem;
             transition: all 0.3s ease;
-            background: white;
+            background: #1a1b26;
+            color: white;
+        }
+
+        .input-group select {
             cursor: pointer;
             appearance: none;
         }
 
+        .input-group select option {
+            background: #1a1b26;
+            color: white;
+        }
+
         .input-group input:focus,
         .input-group select:focus {
-            border-color: #43cea2;
+            border-color: #9C27B0;
             outline: none;
-            box-shadow: 0 0 0 3px rgba(67, 206, 162, 0.1);
+            box-shadow: 0 0 0 3px rgba(156, 39, 176, 0.1);
+        }
+
+        .input-group input::placeholder,
+        .input-group select::placeholder {
+            color: transparent;
         }
 
         .input-group label {
@@ -84,30 +101,26 @@
             left: 15px;
             top: 50%;
             transform: translateY(-50%);
-            background: white;
+            background: #212234;
             padding: 0 5px;
-            color: #666;
+            color: #ffffff99;
             transition: all 0.3s ease;
             pointer-events: none;
         }
 
-        .input-group input:focus+label,
-        .input-group input:not(:placeholder-shown)+label,
-        .input-group select:focus+label,
-        .input-group select:not(:placeholder-shown)+label {
+        .input-group input:focus + label,
+        .input-group input:not(:placeholder-shown) + label,
+        .input-group select:focus + label,
+        .input-group select:not(:placeholder-shown) + label {
             top: 0;
             font-size: 0.8rem;
-            color: #43cea2;
-        }
-
-        .role-group {
-            position: relative;
+            color: #9C27B0;
         }
 
         .role-group::after {
             content: '▼';
             font-size: 0.8rem;
-            color: #666;
+            color: #ffffff99;
             position: absolute;
             right: 15px;
             top: 50%;
@@ -115,15 +128,8 @@
             pointer-events: none;
         }
 
-        .error-message {
-            color: #ff4747;
-            font-size: 0.85rem;
-            margin-top: 0.5rem;
-            display: none;
-        }
-
         .signup-btn {
-            background: linear-gradient(to right, #43cea2, #185a9d);
+            background: #9C27B0;
             color: white;
             padding: 12px;
             border: none;
@@ -131,62 +137,66 @@
             width: 100%;
             font-size: 1rem;
             cursor: pointer;
-            transition: transform 0.2s ease;
+            transition: all 0.3s ease;
             margin-top: 1rem;
         }
 
         .signup-btn:hover {
             transform: translateY(-2px);
+            background: #7B1FA2;
         }
 
         .additional-links {
             margin-top: 1.5rem;
             text-align: center;
             font-size: 0.9rem;
+            color: #ffffff99;
         }
 
         .additional-links a {
-            color: #185a9d;
+            color: #4CAF50;
             text-decoration: none;
             transition: color 0.3s ease;
         }
 
         .additional-links a:hover {
-            color: #43cea2;
+            color: #2E7D32;
         }
 
         .modal {
             display: none;
             position: fixed;
-            z-index: 1;
-            left: 0;
             top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.4);
+            background: rgba(26, 27, 38, 0.8);
+            z-index: 1000;
         }
 
         .modal-content {
-            background-color: #fefefe;
+            background: #212234;
             margin: 15% auto;
             padding: 20px;
-            border: 1px solid #888;
-            width: 30%;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 400px;
+            position: relative;
+            color: white;
         }
 
-        .close-button {
-            color: #aaa;
+        .close-button,
+        .successCloseButton {
+            color: #ffffff99;
             float: right;
             font-size: 28px;
             font-weight: bold;
+            cursor: pointer;
         }
 
         .close-button:hover,
-        .close-button:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
+        .successCloseButton:hover {
+            color: white;
         }
 
         .loading {
@@ -201,29 +211,11 @@
         }
 
         @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        @media (max-width: 600px) {
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
-
 <body>
     <div class="signup-container">
         <h1 class="logo">Second Chance</h1>
@@ -268,6 +260,7 @@
                     <label for="role">Role</label>
                 </div>
             </div>
+
             <div id="modal" class="modal">
                 <div class="modal-content">
                     <span class="close-button">&times;</span>
@@ -356,14 +349,11 @@
                 loading.style.display = 'none';
 
                 if (response.ok) {
-                    // Handle success by displaying a modal
                     showSuccessModal('Account created successfully!');
                 } else {
-                    // Show error from the server response
                     showError(data.detail || 'An error occurred');
                 }
             } catch (error) {
-                // Handle network or unexpected errors
                 console.error('Error:', error);
                 showError('An error occurred while creating the account');
             }
@@ -398,11 +388,13 @@
 
             closeButton.onclick = function () {
                 modal.style.display = "none";
+                window.location.href = 'index.html';
             };
 
             window.onclick = function (event) {
                 if (event.target == modal) {
                     modal.style.display = "none";
+                    window.location.href = 'index.html';
                 }
             };
         }
@@ -410,32 +402,6 @@
         function isValidEmail(email) {
             return email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
         }
-        function showError(message) {
-            const modal = document.getElementById("modal");
-            const modalMessage = document.getElementById("modal-message");
-            const closeButton = document.getElementsByClassName("close-button")[0];
-
-            modalMessage.textContent = message;
-            modal.style.display = "block";
-
-            closeButton.onclick = function () {
-                modal.style.display = "none";
-            };
-
-            window.onclick = function (event) {
-                if (event.target == modal) {
-                    modal.style.display = "none";
-                }
-            };
-        }
-
-        function isValidEmail(email) {
-            return email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
-        }
-
-
     </script>
-
 </body>
-
 </html>

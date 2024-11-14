@@ -13,18 +13,19 @@
         }
 
         body {
-            background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%);
+            background: #1a1b26;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 2rem;
         }
 
         .login-container {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 2rem;
+            background: #212234;
+            padding: 2.5rem;
             border-radius: 15px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
             width: 100%;
             max-width: 400px;
             text-align: center;
@@ -32,13 +33,13 @@
 
         .logo {
             font-size: 2.5rem;
-            color: #185a9d;
+            color: white;
             margin-bottom: 0.5rem;
             font-weight: bold;
         }
 
         .tagline {
-            color: #666;
+            color: #ffffff99;
             margin-bottom: 2rem;
             font-size: 0.9rem;
         }
@@ -51,16 +52,22 @@
         .input-group input {
             width: 100%;
             padding: 12px 15px;
-            border: 2px solid #e1e1e1;
+            border: 2px solid #ffffff3d;
             border-radius: 8px;
             font-size: 1rem;
             transition: all 0.3s ease;
+            background: #1a1b26;
+            color: white;
         }
 
         .input-group input:focus {
-            border-color: #43cea2;
+            border-color: #9C27B0;
             outline: none;
-            box-shadow: 0 0 0 3px rgba(67, 206, 162, 0.1);
+            box-shadow: 0 0 0 3px rgba(156, 39, 176, 0.1);
+        }
+
+        .input-group input::placeholder {
+            color: transparent;
         }
 
         .input-group label {
@@ -68,9 +75,9 @@
             left: 15px;
             top: 50%;
             transform: translateY(-50%);
-            background: white;
+            background: #212234;
             padding: 0 5px;
-            color: #666;
+            color: #ffffff99;
             transition: all 0.3s ease;
             pointer-events: none;
         }
@@ -79,18 +86,18 @@
         .input-group input:not(:placeholder-shown) + label {
             top: 0;
             font-size: 0.8rem;
-            color: #43cea2;
+            color: #9C27B0;
         }
 
         .error-message {
-            color: #ff4747;
+            color: #FF5722;
             font-size: 0.85rem;
             margin-top: 0.5rem;
             display: none;
         }
 
         .login-btn {
-            background: linear-gradient(to right, #43cea2, #185a9d);
+            background: #9C27B0;
             color: white;
             padding: 12px;
             border: none;
@@ -98,11 +105,13 @@
             width: 100%;
             font-size: 1rem;
             cursor: pointer;
-            transition: transform 0.2s ease;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
         .login-btn:hover {
             transform: translateY(-2px);
+            background: #7B1FA2;
         }
 
         .additional-links {
@@ -113,13 +122,13 @@
         }
 
         .additional-links a {
-            color: #185a9d;
+            color: #4CAF50;
             text-decoration: none;
             transition: color 0.3s ease;
         }
 
         .additional-links a:hover {
-            color: #43cea2;
+            color: #2E7D32;
         }
 
         .loading {
@@ -137,10 +146,46 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 27, 38, 0.8);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: #212234;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 400px;
+            position: relative;
+            color: white;
+        }
+
+        .close-button {
+            color: #ffffff99;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-button:hover {
+            color: white;
+        }
     </style>
 </head>
 <body>
     <div class="login-container">
+        <img src="logo.png" alt="Second Chance Logo" style="width: 180px; height: auto; margin-bottom: 1rem;">
         <h1 class="logo">Second Chance</h1>
         <p class="tagline">Every day is an opportunity for a fresh start</p>
         
@@ -174,6 +219,7 @@
             <p id="modal-message"></p>
         </div>
     </div>
+
     <script>
         async function handleLogin(event) {
             event.preventDefault();
