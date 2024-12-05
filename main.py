@@ -56,7 +56,7 @@ app.include_router(Login)
 
 
 templates = Environment(loader=FileSystemLoader("templates"))
-
+app.mount("/templates", StaticFiles(directory="templates"), name="templates")
 # Web Endpoint using JINJA ------------------------------------------------------------------------------------ <-- Begin -->
 @app.get("/")
 @app.get("/index.html", tags=["UI"])
